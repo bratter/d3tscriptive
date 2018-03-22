@@ -1,0 +1,28 @@
+{
+  "name": "d3tscriptive",
+  "version": "0.0.1",
+  "description": "D3(T)Scriptive - D3-based charts and components in Typescript",
+  "license": "MIT",
+  "scripts": {
+    "build:tsc": "tsc",
+    "build:webpack": "webpack"
+  },
+  "dependencies": {
+    "d3": "^4.13.0",
+    "tslint": "^5.9.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^5.0.0",
+    "@types/node": "^9.4.7",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "4.0.0-beta.0",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.7.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.12"
+  }
+}

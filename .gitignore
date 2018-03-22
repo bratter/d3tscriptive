@@ -1,0 +1,48 @@
+# Logs and errors
+logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# IDEs
+.idea/
+jsconfig.json
+.vscode/
+
+# Coverage directories
+lib-cov
+coverage
+.nyc_output
+coverage.*
+
+# Dependency directory
+node_modules
+
+# Node files
+.npm
+.lock-wscript
+.node_repl_history
+
+# Mac OSX Finder files.
+**/.DS_Store
+.DS_Store
+
+# Misc
+typings/
+tmp/
+temp/
+lib/*.js
+test/*.js
+*.map
+
+# Build files
+dist/
+lib/
+build/
+docs/
+demos/
