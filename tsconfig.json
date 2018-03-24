@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "module": "umd",
+    "module": "es6",
     "noImplicitAny": true,
     "outDir": "./lib",
     "sourceMap": true,

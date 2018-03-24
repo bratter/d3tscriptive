@@ -1,38 +1,23 @@
+const base = require('./webpack/base')
+const demos = require('./webpack/demos')
+
 const path = require('path')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
-  mode: "development",
-  context: path.resolve(__dirname),
-  entry: './src/index',
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: '/node_modules/',
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
-        // use: ['style-loader', 'css-loader', 'sass-loader'],
-        exclude: '/node_modules/',
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
-  plugins: [
-    new CleanWebpackPlugin(path.join(__dirname, 'dist')),
-    new ExtractTextPlugin('styles.css'),
-  ],
-  externals: {
-    d3: 'd3',
-  },
+// TODO: Add jest for testing
+// TODO: Bundle declarations in dist - need to add declarations: true in tsconfig when do this
+// TODO: minified bundle and sourcemaps in dist
+
+module.exports = (env) => {
+  const output = env && env.output || 'dist',
+        mode = env && env.production ? 'production' : 'development'
+
+  switch (output) {
+    case 'dist':
+      return base(mode, __dirname, output)    
+    case 'demos': 
+      return demos(mode, __dirname, output)
+  }
 }
