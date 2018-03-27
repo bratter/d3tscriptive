@@ -19,6 +19,8 @@ const demoList = require('./demo-list').map(d => d.path)
 // TODO: Add some way to interact with the component's API in the demo
 // TODO: Show the code in the demo
 
+// Good resource for hbs layouts: https://cloudfour.com/thinks/the-hidden-power-of-handlebars-partials/
+
 function demoPluginResults(demos) {
   const html = [], assets = []
 
