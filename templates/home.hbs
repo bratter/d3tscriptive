@@ -1,9 +1,31 @@
-<html>
-  <head>
-    <title>Demo Home Page</title>
-  </head>
-  <body>
-    {{!-- <h1>{{htmlWebpackPlugin.options.title}}</h1> --}}
-    Home...
-  </body>
-</html>
+{{!-- Demo and Docs Home Page --}}
+
+{{#> layouts/base}}
+
+  {{#*inline "main"}}
+    <main class="container">
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="main-title">
+            <h1 class="display-2"><span>D3(t)Scriptive</span></h1>
+            <p class="lead">D3-based charts and components in Typescript</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-12">
+          <h3>Component Demos</h3>
+          {{#each (demos)}}
+            <div>
+              <a href="/{{path}}">{{name}}</a>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+    </main>
+    {{!-- Could have a select three layout with comonents, charts, something else --}}
+  {{/inline}}
+
+{{/layouts/base}}

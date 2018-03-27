@@ -8,12 +8,13 @@
     "build:demos": "webpack --env.output=demos",
     "start": "webpack-dev-server --env.output=demos"
   },
-  "peerDependencies": {
-    "d3": "^4.13.0"
+  "dependencies": {
+    "d3": "^5.0.0"
   },
   "devDependencies": {
     "@types/d3": "^5.0.0",
     "@types/node": "^9.4.7",
+    "bootstrap": "^4.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
@@ -22,7 +23,9 @@
     "handlebars-loader": "^1.7.0",
     "html-webpack-include-assets-plugin": "^1.0.4",
     "html-webpack-plugin": "^3.0.7",
+    "jquery": "^3.3.1",
     "node-sass": "^4.7.2",
+    "popper.js": "^1.14.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "ts-loader": "^4.1.0",

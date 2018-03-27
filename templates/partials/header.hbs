@@ -1,0 +1,42 @@
+{{!-- Header Menu --}}
+
+<header>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="/">D3(T)Scriptive</a>
+      <button 
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarCollapse"
+        aria-controls="navbarCollapse"
+        aria-expanded="false"
+        aria-label="Toggle Navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a 
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="demoDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >Demos</a>
+            <div class="dropdown-menu" aria-labelledby="demoDropdown">
+              {{#each (demos)}}
+                <a class="dropdown-item" href="/{{path}}">{{name}}</a>
+              {{/each}}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

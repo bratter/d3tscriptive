@@ -1,9 +1,20 @@
-<html>
-  <head>
-    <title>Grid Demo</title>
-  </head>
-  <body>
-    {{!-- <h1>{{htmlWebpackPlugin.options.title}}</h1> --}}
-    Grid Demo...
-  </body>
-</html>
+{{!-- Grid Demo --}}
+
+{{#> layouts/demo prefix="Grid Demo"}}
+  {{#*inline "content"}}
+    
+    <div class="row">
+      <div class="col-12">
+        <h1 class="display-4">Grid Demo</h1>
+
+        <h2>Basic 1D Grids</h2>
+        <p>Demonstrates available settings</p>
+
+        <div class="demo-container">
+          <div class="grid-1d-horizontal"></div>
+        </div>
+      </div>
+    </div>
+
+  {{/inline}}
+{{/layouts/demo}}

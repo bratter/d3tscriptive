@@ -18,6 +18,9 @@ module.exports = (env) => {
     case 'dist':
       return base(mode, __dirname, output)    
     case 'demos': 
-      return demos(mode, __dirname, output)
+      return [
+        base(mode, __dirname, output),
+        demos(mode, __dirname, output)
+      ]
   }
 }
