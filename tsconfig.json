@@ -6,10 +6,14 @@
     "sourceMap": true,
     "target": "es5",
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ]
   },
   "include": [
     "./src"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
   ]
 }

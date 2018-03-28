@@ -6,7 +6,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-// TODO: Add jest for testing
 // TODO: Bundle declarations in dist - need to add declarations: true in tsconfig when do this
 // TODO: minified bundle and sourcemaps in dist
 
