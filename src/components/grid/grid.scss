@@ -1,3 +1,13 @@
+//
+// SCSS for Grid Component
+//
+
+$stroke-width: 1;
+$stroke-color: #CCC;
+
 .grid {
-  stroke: black;
+  line {
+    stroke: $stroke-color;
+    stroke-width: $stroke-width;
+  }
 }
