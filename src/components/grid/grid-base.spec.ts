@@ -45,6 +45,7 @@ describe('gridBase', () => {
     expect(typeof grid === 'function').toBeTruthy()
   })
 
+  // TODO: Consider testing that correct lines are added/kept/removed, not just that the count is correct
   describe('on render with selection', () => {
     it('should render a container group with the correct classes when passed a selection', () => {
       container.call(grid)

@@ -38,13 +38,13 @@ const DIR = {
 
 // Default positioning function for continuous scales
 // The +0.5 avoids anti-aliasing artifacts
-function number<Domain>(scale: AxisScale<Domain>) {
+function number<Domain>(scale: AxisScale<Domain>): (d: Domain) => number {
   return (d: Domain) => +scale(d) + 0.5;
 }
 
 // Replacement positioning function for banded scales
 // Also adjusted for anti-aliasing
-function center<Domain>(scale: AxisScale<Domain>) {
+function center<Domain>(scale: AxisScale<Domain>): (d: Domain) => number {
   let offset = Math.max(0, scale.bandwidth() - 1) / 2;
 
   if (scale.round()) offset = Math.round(offset);
@@ -52,10 +52,9 @@ function center<Domain>(scale: AxisScale<Domain>) {
 }
 
 /**
- * Interface defining a base grid.
+ * Interface defining a base grid component.
  * The generic <Domain> is the type of the grid domain.
  * TODO: Doc comments for interface elements
- * TODO: Decide on return this vs GridBase<Domain> for accessors
  * TODO: Determine if should make ticks overloads fully compatible with axis implementations
  * TODO: Cap offsetStart/End at the range so it doesn't extend over the edge
  */
@@ -77,6 +76,7 @@ export interface GridBase<Domain> {
   tickValues(_: number[]): this
 }
 
+// TODO: Change AxisScale generic to Domain, then fix the transition functions
 export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBase<Domain> {
   let range = [0, 1],
       offsetStart = 0,
@@ -108,7 +108,6 @@ export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBas
     if (context !== selection) {
       line = line.transition(<SimpleTransition>context);
 
-      // TODO: Consider simplifying the typings in the callbacks
       lineExit = lineExit.transition(<SimpleTransition>context)
         .attr('opacity', EPSILON)
         .attr(y + '1', function(this: Element, d: number) { return isFinite(d = position(d)) ? d : this.getAttribute(y + '1') })
