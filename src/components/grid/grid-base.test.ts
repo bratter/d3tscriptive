@@ -2,7 +2,7 @@
  * GridBase Test Suite
  */
 
-import { Fixtures } from '../../../test/fixtures'
+import { SvgFixture } from '../../../test'
 import { select, selectAll, BaseType } from 'd3-selection'
 // Import d3-transition for the side effect of enabling selection.transition()
 import 'd3-transition'
@@ -30,7 +30,7 @@ function extractLineCoords(el: SVGLineElement) {
 }
 
 describe('gridBase', () => {
-  let f = new Fixtures(),
+  let f = new SvgFixture(),
       container: SimpleSelection<BaseType>,
       lineNodes = (dir?: string) => container.selectAll(`.grid${dir ? '.' + dir : ''} line`).nodes(),
       // TODO: Fix null type issue with BaseType
@@ -40,8 +40,7 @@ describe('gridBase', () => {
       grid: GridBase<any>
 
   beforeEach(() => {
-    f.svg()
-    container = select('.test-svg')
+    container = select(f.setup() as BaseType)
     scale = scaleLinear().domain([0, 2]).range([0, 100])
     grid = gridHorizontal(scale)
   })
@@ -394,7 +393,7 @@ describe('gridBase', () => {
 })
 
 describe('gridVertical', () => {
-  let f = new Fixtures(),
+  let f = new SvgFixture(),
       container: SimpleSelection<BaseType>,
       lineNodes = (dir?: string) => container.selectAll(`.grid${dir ? '.' + dir : ''} line`).nodes(),
       // TODO: Fix this, see note above
@@ -404,7 +403,7 @@ describe('gridVertical', () => {
       grid: GridBase<any>
 
   beforeEach(() => {
-    f.svg()
+    container = select(f.setup() as BaseType)
     container = select('.test-svg')
     scale = scaleLinear().domain([0, 2]).range([0, 100])
     grid = gridHorizontal(scale)

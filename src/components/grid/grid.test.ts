@@ -2,9 +2,9 @@
  * GridBase Test Suite
  */
 
-import { Fixtures } from '../../../test/fixtures'
-import { select } from 'd3-selection'
-import { ScaleLinear, scaleLinear, ScaleContinuousNumeric} from 'd3-scale'
+import { SvgFixture } from '../../../test'
+import { select, BaseType } from 'd3-selection'
+import { scaleLinear, ScaleContinuousNumeric} from 'd3-scale'
 import { Grid, grid } from './'
 import { SimpleSelection } from '../../util';
 
@@ -27,7 +27,7 @@ function extractLineCoords(el: SVGLineElement) {
 }
 
 describe('grid', () => {
-  let f = new Fixtures(),
+  let f = new SvgFixture(),
       container: SimpleSelection,
       scaleX: ScaleContinuousNumeric<any, any>,
       scaleY: ScaleContinuousNumeric<any, any>,
@@ -39,8 +39,7 @@ describe('grid', () => {
       actualLineCoords = (dir?: string) => lineNodes(dir).map(extractLineCoords)
 
   beforeEach(() => {
-    f.svg()
-    container = select('.test-svg')
+    container = select(f.setup() as BaseType)
     scaleX = scaleLinear().domain([0, 2]).range([0, 50])
     scaleY = scaleLinear().domain([0, 2]).range([100, 150])
     tickValues = [0, 1, 2]

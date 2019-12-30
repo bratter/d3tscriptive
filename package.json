@@ -7,12 +7,17 @@
     "build": "rm -rf ./build & tsc",
     "test": "jest --watch",
     "test:once": "jest",
+    "test:coverage": "jest --coverage",
     "install:peers": "install-peers -f"
   },
   "jest": {
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "coverageDirectory": "coverage",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [
       "ts",
