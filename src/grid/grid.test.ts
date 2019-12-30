@@ -2,11 +2,11 @@
  * GridBase Test Suite
  */
 
-import { SvgFixture } from '../../../test'
+import { SvgFixture } from '../../test'
 import { select, BaseType } from 'd3-selection'
 import { scaleLinear, ScaleContinuousNumeric} from 'd3-scale'
 import { Grid, grid } from './'
-import { SimpleSelection } from '../../util';
+import { SimpleSelection } from '../util';
 
 interface Coords {
   x1: number

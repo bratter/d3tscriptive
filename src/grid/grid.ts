@@ -3,8 +3,8 @@
  */
 
 import { AxisScale } from 'd3-axis'
-import { SimpleContext, SimpleSelection } from "../../util/index";
-import { gridHorizontal, gridVertical, GridBase } from './index';
+import { SimpleContext, SimpleSelection } from '../util/index';
+import { gridHorizontal, gridVertical, GridBase } from './grid-base';
 
 /**
  * Interface describing a 2-dimensional grid component.

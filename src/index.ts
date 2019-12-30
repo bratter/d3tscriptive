@@ -1,1 +1,2 @@
-export * from './components/grid/index'
+export * from './util'
+export * from './grid'

@@ -5,8 +5,8 @@
 import { BaseType, ValueFn } from 'd3-selection'
 import { Transition } from 'd3-transition'
 import { AxisScale } from 'd3-axis'
-import { classArray } from '../../util/classes'
-import { SimpleContext, selectionFromContext, SimpleTransition } from '../../util/selection' 
+import { classArray } from '../util/classes'
+import { SimpleContext, selectionFromContext, SimpleTransition } from '../util/selection' 
 import { Domain } from 'domain';
 
 /**

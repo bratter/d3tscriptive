@@ -2,13 +2,13 @@
  * GridBase Test Suite
  */
 
-import { SvgFixture } from '../../../test'
+import { SvgFixture } from '../../test'
 import { select, selectAll, BaseType } from 'd3-selection'
 // Import d3-transition for the side effect of enabling selection.transition()
 import 'd3-transition'
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal, scaleBand, ScaleBand } from 'd3-scale'
 import { AxisScale } from 'd3-axis'
-import { SimpleSelection, SimpleTransition } from '../../util'
+import { SimpleSelection, SimpleTransition } from '../util'
 import { GridBase, gridHorizontal, gridVertical } from './'
 
 interface Coords {
