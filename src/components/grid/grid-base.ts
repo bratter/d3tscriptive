@@ -79,7 +79,7 @@ export interface GridBase<Domain> {
   ticks(): number
   ticks(_: number): this
   tickValues(): number[]
-  tickValues(_: number[]|undefined): this
+  tickValues(_: number[]|null|undefined): this
 }
 
 // TODO: Change AxisScale generic to Domain, then fix the transition functions
@@ -191,8 +191,8 @@ export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBas
     return _ !== undefined ? (ticks = _, this) : ticks
   }
 
-  gridBase.tickValues = function(_?: number[]|undefined): any {
-    return arguments.length ? (tickValues = _ == null ? null : [..._].slice(), this) : tickValues && tickValues.slice()
+  gridBase.tickValues = function(_?: number[]|null|undefined): any {
+    return _ !== undefined ? (tickValues = _ == null ? null : [..._].slice(), this) : tickValues && tickValues.slice()
   }
 
   return gridBase

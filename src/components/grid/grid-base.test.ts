@@ -8,24 +8,33 @@ import { select, selectAll, BaseType } from 'd3-selection'
 import 'd3-transition'
 import { ScaleLinear, scaleLinear, ScaleOrdinal, scaleOrdinal, scaleBand, ScaleBand } from 'd3-scale'
 import { AxisScale } from 'd3-axis'
-import { SimpleSelection } from '../../util'
+import { SimpleSelection, SimpleTransition } from '../../util'
 import { GridBase, gridHorizontal, gridVertical } from './'
+
+interface Coords {
+  x1: number
+  x2: number
+  y1: number
+  y2: number
+}
 
 function extractLineCoords(el: SVGLineElement) {
   let sel = select(el);
 
   return {
-      x1: +sel.attr('x1'),
-      x2: +sel.attr('x2'),
-      y1: +sel.attr('y1'),
-      y2: +sel.attr('y2')
+    x1: +sel.attr('x1'),
+    x2: +sel.attr('x2'),
+    y1: +sel.attr('y1'),
+    y2: +sel.attr('y2'),
   } 
 }
 
-describe.skip('gridBase', () => {
+describe('gridBase', () => {
   let f = new Fixtures(),
       container: SimpleSelection<BaseType>,
       lineNodes = (dir?: string) => container.selectAll(`.grid${dir ? '.' + dir : ''} line`).nodes(),
+      // TODO: Fix null type issue with BaseType
+      // @ts-ignore
       actualLineCoords = (dir?: string) => lineNodes(dir).map(extractLineCoords),
       scale: ScaleLinear<number, number>,
       grid: GridBase<any>
@@ -128,7 +137,9 @@ describe.skip('gridBase', () => {
     })
 
     describe('positioning', () => {
-      let tickValues, range, expectedCoords
+      let tickValues: number[],
+        range: number[],
+        expectedCoords: Coords[]
 
       beforeEach(() => {
         tickValues = [0, 1, 2]
@@ -231,7 +242,7 @@ describe.skip('gridBase', () => {
 
   // TODO: Consider adding tests to confirm correct positioning animation
   describe('on render with transition', () => {
-    let transition
+    let transition: SimpleTransition
 
     beforeEach(() => {
         transition = container.transition().duration(1)
@@ -348,7 +359,9 @@ describe.skip('gridBase', () => {
   })
 
   describe('gridVertical', () => {
-    let tickValues, range, expected
+    let tickValues: number[],
+      range: number[],
+      expected: Coords[]
 
     beforeEach(() => {
       tickValues = [0, 1, 2]
@@ -384,6 +397,8 @@ describe('gridVertical', () => {
   let f = new Fixtures(),
       container: SimpleSelection<BaseType>,
       lineNodes = (dir?: string) => container.selectAll(`.grid${dir ? '.' + dir : ''} line`).nodes(),
+      // TODO: Fix this, see note above
+      // @ts-ignore
       actualLineCoords = (dir?: string) => lineNodes(dir).map(extractLineCoords),
       scale: ScaleLinear<number, number>,
       grid: GridBase<any>

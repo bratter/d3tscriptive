@@ -32,7 +32,7 @@ export interface Grid<DomainX, DomainY> {
   ticks(): [number, number]
   ticks(_: number): this
   ticks(_: [number, number]): this
-  tickValues(): [number[], number[]]
+  tickValues(): [number[]|null, number[]|null]
   tickValues(_: number[]): this
   tickValues(_: [number[], number[]]): this
 }
@@ -41,8 +41,8 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   let gridH = gridHorizontal(scaleY),
       gridV = gridVertical(scaleX),
       direction: string = 'full',
-      tickValuesH: number[]|undefined,
-      tickValuesV: number[]|undefined
+      tickValuesH: number[]|null = null,
+      tickValuesV: number[]|null = null
 
   const grid = <Grid<DomainX, DomainY>>function(context: SimpleContext): void {
     (direction === 'full' || direction === 'horizontal')

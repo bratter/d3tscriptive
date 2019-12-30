@@ -1,5 +1,6 @@
 /**
  * Class to set up and tear down dom fixtures for testing
+ * TODO: Create two sub-classes, one each for div and svg
  */
 export class Fixtures {
   static div = '<div class="test-container a"></div>'

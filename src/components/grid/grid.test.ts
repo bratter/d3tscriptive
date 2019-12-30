@@ -4,28 +4,38 @@
 
 import { Fixtures } from '../../../test/fixtures'
 import { select } from 'd3-selection'
-import { ScaleLinear, scaleLinear} from 'd3-scale'
+import { ScaleLinear, scaleLinear, ScaleContinuousNumeric} from 'd3-scale'
 import { Grid, grid } from './'
+import { SimpleSelection } from '../../util';
+
+interface Coords {
+  x1: number
+  x2: number
+  y1: number
+  y2: number
+}
 
 function extractLineCoords(el: SVGLineElement) {
   let sel = select(el);
 
   return {
-      x1: +sel.attr('x1'),
-      x2: +sel.attr('x2'),
-      y1: +sel.attr('y1'),
-      y2: +sel.attr('y2')
+    x1: +sel.attr('x1'),
+    x2: +sel.attr('x2'),
+    y1: +sel.attr('y1'),
+    y2: +sel.attr('y2')
   } 
 }
 
-describe.skip('grid', () => {
+describe('grid', () => {
   let f = new Fixtures(),
-      container,
-      scaleX,
-      scaleY,
+      container: SimpleSelection,
+      scaleX: ScaleContinuousNumeric<any, any>,
+      scaleY: ScaleContinuousNumeric<any, any>,
       tickValues: number[],
       grid2D: Grid<any, any>,
       lineNodes = (dir?: string) => container.selectAll(`.grid${dir ? '.' + dir : ''} line`).nodes(),
+      // TODO: See note in grid-base-test regarding fixing types
+      // @ts-ignore
       actualLineCoords = (dir?: string) => lineNodes(dir).map(extractLineCoords)
 
   beforeEach(() => {
@@ -127,8 +137,8 @@ describe.skip('grid', () => {
   })
 
   describe('positioning', () => {
-    let expectedCoordsH,
-        expectedCoordsV
+    let expectedCoordsH: Coords[],
+        expectedCoordsV: Coords[]
 
     beforeEach(() => {
       expectedCoordsH = [
