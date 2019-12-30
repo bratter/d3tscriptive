@@ -18,7 +18,7 @@ function extractLineCoords(el: SVGLineElement) {
   } 
 }
 
-describe('grid', () => {
+describe.skip('grid', () => {
   let f = new Fixtures(),
       container,
       scaleX,

@@ -1,19 +1,24 @@
 {
   "compilerOptions": {
     "module": "es6",
-    "noImplicitAny": true,
-    "outDir": "./lib",
+    "outDir": "./dist",
     "sourceMap": true,
+    "strict": false,
     "target": "es5",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "types": [
       "node",
-      "jasmine"
+      "jest"
     ]
   },
   "include": [
     "./src"
   ],
   "exclude": [
+    "**/*.test.ts",
     "**/*.spec.ts"
   ]
 }

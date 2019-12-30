@@ -5,8 +5,8 @@
 import { BaseType, ValueFn } from 'd3-selection'
 import { Transition } from 'd3-transition'
 import { AxisScale } from 'd3-axis'
-import { classArray } from '../../helpers/classes'
-import { SimpleContext, selectionFromContext, SimpleTransition } from '../../helpers/selection' 
+import { classArray } from '../../util/classes'
+import { SimpleContext, selectionFromContext, SimpleTransition } from '../../util/selection' 
 import { Domain } from 'domain';
 
 /**
@@ -38,16 +38,22 @@ const DIR = {
 
 // Default positioning function for continuous scales
 // The +0.5 avoids anti-aliasing artifacts
+// TODO: Fix typing
 function number<Domain>(scale: AxisScale<Domain>): (d: Domain) => number {
+  // @ts-ignore
   return (d: Domain) => +scale(d) + 0.5;
 }
 
 // Replacement positioning function for banded scales
 // Also adjusted for anti-aliasing
+// TODO: Fix typing
 function center<Domain>(scale: AxisScale<Domain>): (d: Domain) => number {
+  // @ts-ignore
   let offset = Math.max(0, scale.bandwidth() - 1) / 2;
 
+  // @ts-ignore
   if (scale.round()) offset = Math.round(offset);
+  // @ts-ignore
   return (d: Domain) => +scale(d) + offset + 0.5;
 }
 
@@ -73,7 +79,7 @@ export interface GridBase<Domain> {
   ticks(): number
   ticks(_: number): this
   tickValues(): number[]
-  tickValues(_: number[]): this
+  tickValues(_: number[]|undefined): this
 }
 
 // TODO: Change AxisScale generic to Domain, then fix the transition functions
@@ -82,8 +88,8 @@ export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBas
       offsetStart = 0,
       offsetEnd = 0,
       hideEdges: boolean|string = false,
-      ticks: number = null,
-      tickValues: number[] = null,
+      ticks: number|null = null,
+      tickValues: number[]|null = null,
 
       classArr = classArray('grid', orient),
       x = orient === DIR.H ? 'x' : 'y',
@@ -102,19 +108,24 @@ export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBas
         lineExit: SimpleContext = line.exit(),
         lineEnter = line.enter().append('line').attr('stroke', '#000')
     
+    // TODO: Fix typing
+    // @ts-ignore
     line = line.merge(lineEnter);
 
     // If context is a transition, then animate the lines
     if (context !== selection) {
       line = line.transition(<SimpleTransition>context);
 
+      // TODO: Fix typing in first function for both exit and enter
       lineExit = lineExit.transition(<SimpleTransition>context)
         .attr('opacity', EPSILON)
+        // @ts-ignore
         .attr(y + '1', function(this: Element, d: number) { return isFinite(d = position(d)) ? d : this.getAttribute(y + '1') })
         .attr(y + '2', function(this: Element, d: number) { return isFinite(d = position(d)) ? d : this.getAttribute(y + '2') })
 
       lineEnter = lineEnter
         .attr('opacity', EPSILON)
+        // @ts-ignore
         .attr(y + '1', function(this: GridType, d: number) { let p = this.parentNode.__grid; return p && isFinite(p = p(d)) ? p : position(d); })
         .attr(y + '2', function(this: GridType, d: number) { let p = this.parentNode.__grid; return p && isFinite(p = p(d)) ? p : position(d); })
     }
@@ -157,30 +168,30 @@ export function gridBase<Domain>(orient: string, scale: AxisScale<any>): GridBas
   // API
 
   gridBase.scale = function(_?: AxisScale<Domain>): any {
-    return arguments.length ? (scale = _, this) : scale
+    return _ !== undefined ? (scale = _, this) : scale
   }
 
   gridBase.range = function(_?: number[]): any {
-    return arguments.length ? (range = _, this) : range
+    return _ !== undefined ? (range = _, this) : range
   }
 
   gridBase.offsetStart = function(_?: number): any {
-    return arguments.length ? (offsetStart = _, this) : offsetStart
+    return _ !== undefined ? (offsetStart = _, this) : offsetStart
   }
 
   gridBase.offsetEnd = function(_?: number): any {
-    return arguments.length ? (offsetEnd = _, this) : offsetEnd
+    return _ !== undefined ? (offsetEnd = _, this) : offsetEnd
   }
 
   gridBase.hideEdges = function(_?: boolean|string): any {
-    return arguments.length ? (hideEdges = _, this) : hideEdges
+    return _ !== undefined ? (hideEdges = _, this) : hideEdges
   }
 
   gridBase.ticks = function(_?: number): any {
-    return arguments.length ? (ticks = _, this) : ticks
+    return _ !== undefined ? (ticks = _, this) : ticks
   }
 
-  gridBase.tickValues = function(_?: number[]): any {
+  gridBase.tickValues = function(_?: number[]|undefined): any {
     return arguments.length ? (tickValues = _ == null ? null : [..._].slice(), this) : tickValues && tickValues.slice()
   }
 

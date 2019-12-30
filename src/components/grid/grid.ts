@@ -3,7 +3,7 @@
  */
 
 import { AxisScale } from 'd3-axis'
-import { SimpleContext, SimpleSelection } from "../../helpers/index";
+import { SimpleContext, SimpleSelection } from "../../util/index";
 import { gridHorizontal, gridVertical, GridBase } from './index';
 
 /**
@@ -41,8 +41,8 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   let gridH = gridHorizontal(scaleY),
       gridV = gridVertical(scaleX),
       direction: string = 'full',
-      tickValuesH: number[] = null,
-      tickValuesV: number[] = null
+      tickValuesH: number[]|undefined,
+      tickValuesV: number[]|undefined
 
   const grid = <Grid<DomainX, DomainY>>function(context: SimpleContext): void {
     (direction === 'full' || direction === 'horizontal')
@@ -60,19 +60,19 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   // API
 
   grid.scaleX = function(_?: AxisScale<DomainX>): any {
-    return arguments.length ? (scaleX = _, gridV.scale(scaleX), this) : scaleX
+    return _ !== undefined ? (scaleX = _, gridV.scale(scaleX), this) : scaleX
   }
 
   grid.scaleY = function(_?: AxisScale<DomainY>): any {
-      return arguments.length ? (scaleY = _, gridH.scale(scaleY), this) : scaleY
+      return _ !== undefined ? (scaleY = _, gridH.scale(scaleY), this) : scaleY
   }
 
   grid.direction = function(_?: string): any {
-    return arguments.length ? (direction = _, this) : direction
+    return _ !== undefined ? (direction = _, this) : direction
   }
 
   grid.offsetStart = function(_?: number|[number, number]): any {
-    if (!arguments.length) return [gridH.offsetStart(), gridV.offsetStart()]
+    if (_ === undefined) return [gridH.offsetStart(), gridV.offsetStart()]
 
     _ = Array.isArray(_) ? _ : [_, _]
     gridH.offsetStart(_[0])
@@ -82,7 +82,7 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   }
 
   grid.offsetEnd = function(_?: number|[number, number]): any {
-    if (!arguments.length) return [gridH.offsetEnd(), gridV.offsetEnd()]
+    if (_ === undefined) return [gridH.offsetEnd(), gridV.offsetEnd()]
 
     _ = Array.isArray(_) ? _ : [_, _]
     gridH.offsetEnd(_[0])
@@ -92,7 +92,7 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   }
 
   grid.hideEdges = function(_?: boolean|string|[boolean|string, boolean|string]): any {
-    if (!arguments.length) return [gridH.hideEdges(), gridV.hideEdges()]
+    if (_ === undefined) return [gridH.hideEdges(), gridV.hideEdges()]
 
     _ = Array.isArray(_) ? _ : [_, _]
     gridH.hideEdges(_[0])
@@ -102,7 +102,7 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   }
 
   grid.ticks = function(_?: number|[number, number]): any {
-    if (!arguments.length) return [gridH.ticks(), gridV.ticks()]
+    if (_ === undefined) return [gridH.ticks(), gridV.ticks()]
 
     _ = Array.isArray(_) ? _ : [_, _]
     gridH.ticks(_[0])
@@ -112,7 +112,7 @@ export function grid<DomainX, DomainY>(scaleX: AxisScale<DomainX>, scaleY: AxisS
   }
 
   grid.tickValues = function(_?: number[]|[number[], number[]]): any {
-    if (!arguments.length) return [tickValuesH, tickValuesV]
+    if (_ === undefined) return [tickValuesH, tickValuesV]
 
     _ = <[number[], number[]]>(Array.isArray(_[0]) ? _ : [_, _])
     tickValuesH = _[0]
