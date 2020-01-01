@@ -1,2 +1,2 @@
-export * from './grid-base'
-export * from './grid'
+export * from './grid-base';
+export * from './grid';
