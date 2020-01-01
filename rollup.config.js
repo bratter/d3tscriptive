@@ -1,4 +1,5 @@
-import typescript from 'rollup-plugin-typescript2'
+import resolve from '@rollup/plugin-node-resolve'
+import ts from '@wessberg/rollup-plugin-ts'
 import sourceMaps from 'rollup-plugin-sourcemaps'
 import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
@@ -10,27 +11,35 @@ const external = [
 ]
 
 export default [{
-  // Non-minified umd and es outputs, including sourcemaps
+  // Non-minified umd output, including sourcemaps and declarations
   input,
   external,
-  output: [
-    {
-      file: pkg.main,
-      format: 'umd',
-      name: pkg.name,
-      sourcemap: true,
-    },
-    {
-      file: pkg.module,
-      format: 'es',
-      sourcemap: true,
-    },
-  ],
+  output: [{
+    file: pkg.main,
+    format: 'umd',
+    name: pkg.name,
+    sourcemap: true,
+  }],
   plugins: [
-    typescript({ typescript: require('typescript') }),
+    resolve(),
+    ts({ tsconfig: cfg => ( { ...cfg, declaration: true, declarationMap: true }) }),
     sourceMaps(),
   ],
 }, {
+  // Non-minified es output, including sourcemap
+  input,
+  external,
+  output: [{
+    file: pkg.module,
+    format: 'es',
+    sourcemap: true,
+  }],
+  plugins: [
+    resolve(),
+    ts(),
+    sourceMaps(),
+  ],
+},{
   // Minified output using terser
   input,
   external,
@@ -40,7 +49,8 @@ export default [{
     name: pkg.name,
    }],
   plugins: [
-    typescript({ typescript: require('typescript') }),
+    resolve(),
+    ts(),
     terser(),
   ],
 }]
