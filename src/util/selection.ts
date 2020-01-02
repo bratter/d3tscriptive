@@ -2,8 +2,8 @@ import {
   Selection,
   TransitionLike,
   BaseType,
-} from 'd3-selection';
-import { Transition } from 'd3-transition';
+  Transition,
+} from 'd3';
 
 /**
  * Simple Selection type.
