@@ -13,19 +13,19 @@ export class DomFixture<ElType extends Element = Element> {
    * Setup the content of the DOM using the preset html string.
    */
   setup(): ElType {
-    document.body.innerHTML = this.content
+    document.body.innerHTML = this.content;
 
-    const el = document.querySelector<ElType>(this.selector)
+    const el = document.querySelector<ElType>(this.selector);
 
-    if (!el) throw new Error('The element to select does not exist and cannot be returned.')
-    
-    return el
+    if (!el) throw new Error('The element to select does not exist and cannot be returned.');
+
+    return el;
   }
 
   /**
    * Restore the content of the DOM.
    */
   teardown(): void {
-    document.body.innerHTML = ''
+    document.body.innerHTML = '';
   }
 }

@@ -1,14 +1,14 @@
-import resolve from '@rollup/plugin-node-resolve'
-import ts from '@wessberg/rollup-plugin-ts'
-import sourceMaps from 'rollup-plugin-sourcemaps'
-import { terser } from 'rollup-plugin-terser'
-import pkg from './package.json'
+import resolve from '@rollup/plugin-node-resolve';
+import ts from '@wessberg/rollup-plugin-ts';
+import sourceMaps from 'rollup-plugin-sourcemaps';
+import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
-const input = 'src/index.ts'
+const input = 'src/index.ts';
 const external = [
   ...Object.keys(pkg.dependencies || {}),
   ...Object.keys(pkg.peerDependencies || {}),
-]
+];
 
 export default [{
   // Non-minified umd output, including sourcemaps and declarations
@@ -22,7 +22,7 @@ export default [{
   }],
   plugins: [
     resolve(),
-    ts({ tsconfig: cfg => ( { ...cfg, declaration: true, declarationMap: true }) }),
+    ts({ tsconfig: (cfg) => ({ ...cfg, declaration: true, declarationMap: true }) }),
     sourceMaps(),
   ],
 }, {
@@ -39,18 +39,18 @@ export default [{
     ts(),
     sourceMaps(),
   ],
-},{
+}, {
   // Minified output using terser
   input,
   external,
-  output: [{ 
+  output: [{
     file: pkg.min,
     format: 'umd',
     name: pkg.name,
-   }],
+  }],
   plugins: [
     resolve(),
     ts(),
     terser(),
   ],
-}]
+}];
