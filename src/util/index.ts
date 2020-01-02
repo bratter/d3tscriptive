@@ -1,2 +1,2 @@
-export * from './classes'
-export * from './selection'
+export * from './classes';
+export * from './selection';
